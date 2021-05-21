@@ -1,0 +1,417 @@
+<html>
+    <head>
+        <title>Genshin Damage Calculator</title>
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/padding.css">
+        <link rel="stylesheet" href="css/bootstrap-checkbox.css">
+        <style>
+        </style>
+        <script src="js/formula.js"></script>
+        <script src="js/switches.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="main-page-wrapper">
+            <div class="main-page-subwrap">
+                <div class="main-page">
+                    <h3 style="margin: 10px; text-align: center;">Genshin Damage Calculator</h3>
+                    <h5 style="margin: 10px; text-align: center;">A simple, lightweight genshin total damage calculator. Fully editable variables, formula is found <a href="https://library.keqingmains.com/mechanics/combat/damage-formula">here.</a></h5>
+                    <p style="text-align: center; color: red;" id="debug-text"></p>
+                    <div class="calc-section">
+                        <h5 style="text-align: left;">Player Info</h5>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="accuracy-switch" onclick="accuracyswitchcheck();">
+                            <label class="form-check-label" for="accuracy-switch">Accuracy Mode</label>
+                        </div>
+                    </div>
+                    <div class="calc-row-wrapper">
+                        <div class="calc-row">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="world-lvl-dropdown" style="" data-bs-toggle="dropdown" aria-expanded="false">
+                                  World Level: <span id="world-lvl"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="world-lvl-dropdown">
+                                  <li><a class="dropdown-item" onclick="increaseWorldLvl(1);">1</a></li>
+                                  <li><a class="dropdown-item" onclick="increaseWorldLvl(2);">2</a></li>
+                                  <li><a class="dropdown-item" onclick="increaseWorldLvl(3);">3</a></li>
+                                  <li><a class="dropdown-item" onclick="increaseWorldLvl(4);">4</a></li>
+                                  <li><a class="dropdown-item" onclick="increaseWorldLvl(5);">5</a></li>
+                                  <li><a class="dropdown-item" onclick="increaseWorldLvl(6);">6</a></li>
+                                  <li><a class="dropdown-item" onclick="increaseWorldLvl(7);">7</a></li>
+                                  <li><a class="dropdown-item" onclick="increaseWorldLvl(8);">8</a></li>
+                                </ul>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="char-lvl-dropdown" style="" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Character Level: <span id="char-lvl"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="char-lvl-dropdown">
+                                    <li><a class="dropdown-item" onclick="increaseCharLvl(10);">10</a></li>
+                                    <li><a class="dropdown-item" onclick="increaseCharLvl(20);">20</a></li>
+                                    <li><a class="dropdown-item" onclick="increaseCharLvl(30);">30</a></li>
+                                    <li><a class="dropdown-item" onclick="increaseCharLvl(40);">40</a></li>
+                                    <li><a class="dropdown-item" onclick="increaseCharLvl(50);">50</a></li>
+                                    <li><a class="dropdown-item" onclick="increaseCharLvl(60);">60</a></li>
+                                    <li><a class="dropdown-item" onclick="increaseCharLvl(70);">70</a></li>
+                                    <li><a class="dropdown-item" onclick="increaseCharLvl(80);">80</a></li>
+                                    <li><a class="dropdown-item" onclick="increaseCharLvl(90);">90</a></li>
+                                </ul>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Enemy Level</span>
+                                <input readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="enemy-accuracy-lvl">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="calc-section">
+                        <h5 style="text-align: left;">Character ATK Info</h5>
+                    </div>
+                    <div class="calc-row-wrapper">
+                        <div class="calc-row">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Base ATK</span>
+                                <input readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="base-atk">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Added ATK</span>
+                                <input readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="added-atk">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="calc-section">
+                        <h5 style="text-align: left;">Multipliers <span class="text-muted">(Note: No need to input % sign)</span></h5>
+                    </div>
+                    <div class="calc-row-wrapper">
+                        <div class="calc-row">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Elem DMG Bonus%</span>
+                                <input readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="elem-dmg-bonus">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Crit DMG%</span>
+                                <input readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="crit-dmg">
+                            </div>
+                            <div class="input-group mb-3" id="skill-multiplier">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Skill Multiplier%</span>
+                                <input readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="skill-multiplier-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="em-section" style="visibility: hidden;">
+                        <div class="calc-section">
+                            <h5>Elemental Mastery</h5>
+                        </div>
+                        <div class="calc-row-wrapper">
+                            <div class="calc-row">
+                                <div class="input-group mb-3" id="em-multiplier">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Elemental Mastery</span>
+                                    <input readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                </div>
+                                <div class="input-group mb-3" id="reaction-bonus-multiplier">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Reaction Bonus%</span>
+                                    <input readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    <button class="btn btn-outline-secondary" style="border-color: #ced4da;" type="button" id="info-reaction-bonus">?</button>
+                                </div>
+                                <div class="dropdown" id="transformative-reaction">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="transformative-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Transformative Reaction 
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="transformative-dropdown">
+                                    <li><a class="dropdown-item" href="#">Overloaded</a></li>
+                                    <li><a class="dropdown-item" href="#">Shatter</a></li>
+                                    <li><a class="dropdown-item" href="#">Electro Charged</a></li>
+                                    <li><a class="dropdown-item" href="#">Swirl</a></li>
+                                    <li><a class="dropdown-item" href="#">Superconduct</a></li>
+                                    </ul>
+                                </div>
+                                <div class="dropdown" id="vapmelt">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="vapmelt-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Vaporize/Melt
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="vapmelt-dropdown">
+                                    <li><a class="dropdown-item" href="#">1x</a></li>
+                                    <li><a class="dropdown-item" href="#">1.5x</a></li>
+                                    <li><a class="dropdown-item" href="#">2x</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="res-def-section" style="visibility: hidden;">
+                        <div class="calc-section">
+                            <h5>RES / DEF Multipliers</h5>
+                        </div>
+                        <div clsas="calc-row-wrapper">
+                            <div class="calc-row">
+                                <div class="input-group mb-3" id="res-decrease">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">RES reduction%</span>
+                                    <input readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="res-reduction">
+                                    <button class="btn btn-outline-secondary" style="border-color: #ced4da;" type="button" id="info-res-decrease">?</button>
+                                </div>
+                                <div class="input-group mb-3" id="def-decrease">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">DEF reduction%</span>
+                                    <input readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="def-reduction">
+                                    <button class="btn btn-outline-secondary" style="border-color: #ced4da;" type="button" id="info-def-decrease">?</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="weapon-procs-section" style="visibility: hidden">
+                        <div class="calc-section">
+                            <h5>Weapon/Skill Procs</h5>
+                        </div>
+                        <div class="calc-row-wrapper">
+                            <div class="calc-row">
+                                <div class="input-group mb-3" id="weapon-procs">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Weapon Procs%</span>
+                                    <input readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    <button class="btn btn-outline-secondary" style="border-color: #ced4da;" type="button" id="info-weapon-procs">?</button>
+                                </div>
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="weapon-procs-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                      Scales from...
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="weapon-procs-dropdown">
+                                      <li><a class="dropdown-item" href="#">HP</a></li>
+                                      <li><a class="dropdown-item" href="#">ATK</a></li>
+                                      <li><a class="dropdown-item" href="#">DEF</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="calc-row-wrapper">
+                        <div class="calc-row">
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Add a multiplier</button>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="em-switch" onclick="emswitchcheck();">
+                                <label class="form-check-label" for="em-switch">Uses elemental mastery</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="res-def-switch" onclick="resdefswitchcheck();">
+                                <label class="form-check-label" for="res-switch">Include RES / DEF reduction</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="weapon-procs-switch" onclick="weaponswitchcheck();">
+                                <label class="form-check-label" for="weapon-procs-switch">Include weapon and skill procs</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="calc-section">
+                        <h6>Debug Console</h6>
+                        <p>worldLvl: <span id="world-lvl-debug"></span></p>
+                        <p>charLvl: <span id="char-lvl-debug"></span></p>
+                        <p>defMultiplier: <span id="forms-debug"></span></p>
+                    </div>
+                </div>
+                <div class="padding-sm"></div>
+                <div class="info-page">
+                    <h3 style="margin: 10px; text-align: center;">Total Damage:</h3>
+                    <h1 style="margin: 10px; text-align: center;">~<span id="total-damage"></span></h1>
+                    <h6 style="text-align: center;">Made by Liqht#8961</h6>
+                    <div class="padding-sm"></div>
+                    <div class="calc-section">
+                        <h5 style="text-align: center;">What is base ATK / Added ATK?</h5>
+                    </div>
+                    <div class="img-holder">
+                        <img src="assets/atk.PNG">
+                    </div>
+                    <p style="margin-left: 9px; margin-right: 9px;">The <strong>white text</strong> is the <mark>base ATK</mark>. The <strong>green text</strong> is the <mark>the added ATK.</mark></p>
+                    <div class="calc-section">
+                        <h5 style="text-align: center;">Why is world level and character level needed?</h5>
+                    </div>
+                    <p style="margin-left: 9px; margin-right: 9px;">To get the most accurate results for your damage,  we must also take into account <br class="disappear"> the enemy's DEF and RES. Both of which scales with the enemy's lvl and <br class="disappear"> your current active character's lvl.</p>
+                    <div class="calc-section">
+                        <h5 style="text-align: center;">What is reaction bonus?</h5>
+                    </div>
+                    <p style="margin-left: 9px; margin-right: 9px;"><strong>Reaction bonus</strong> are percentage bonuses of Elemental Reactions from pieces <br> such as 4 PC Thundering Fury, 4 PC Crimson Witch, 4 VV etc.</p>
+
+                    <div class="calc-section">
+                        <h5 style="text-align: center;">What is RES / DEF reduction?</h5>
+                    </div>
+                    <p style="margin-left: 9px; margin-right: 9px;"><strong>RES/DEF reduction</strong> refers to bonuses from skills, sets, constellations (and more) <br class="disappear">that reduces DEF and RES  like 4 VV, Zhongli's Shield, Eula's E skill etc.</p>
+
+                    <div class="calc-section">
+                        <h5 style="text-align: center;">What are weapon procs?</h5>
+                    </div>
+                    <p style="margin-left: 9px; margin-right: 9px;"><strong>Weapon procs</strong> are seperate triggered-effects bonuses from weapons. <br> Examples of this is Prototype Archaic 240% ATK in an AOE, Dragonspine Spear <br class="disappear"> Icicle, Snow-Tombed star silver icicle, etc. They don't count to your <br class="disappear"> single-hit damage but counts to your total damage.</p>
+                    <div class="calc-section">
+                        <h5 style="text-align: center;">Missed something?</h5>
+                    </div>
+                    <p style="margin-left: 9px; margin-right: 9px;">You can add your own multiplier if you think we've missed something.</p>
+                </div>
+
+            </div>
+            
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script>
+        //$('input').on('input', function() {
+        //    var c = this.selectionStart,
+        //        r = /[^a-z0-9]/gi,
+        //        v = $(this).val();
+        //    if(r.test(v)) {
+        //    $(this).val(v.replace(r, ''));
+        //    c--;
+        //    }
+        //    this.setSelectionRange(c, c);
+        //});
+
+        var em_switch = document.getElementById("em-switch");
+        var res_def_switch = document.getElementById("res-def-switch");
+        var weapon_switch = document.getElementById("weapon-procs-switch");
+        var em_section = document.getElementById("em-section");
+        var res_def_section = document.getElementById("res-def-section");
+        var weapon_section = document.getElementById("weapon-procs-section");
+        var debug_text_label = document.getElementById("debug-text");
+        var world_level_label = document.getElementById("world-lvl");
+        var char_level_label = document.getElementById("char-lvl");
+
+        var world_lvl_debug = document.getElementById("world-lvl-debug");
+        var char_lvl_debug = document.getElementById("char-lvl-debug");
+        var forms_debug = document.getElementById("forms-debug");
+        var world_level = 0;
+        var char_level = 0;
+        var enemy_level = 0;
+
+        $(document).ready(function() {
+            em_switch.checked = true;
+            res_def_switch.checked = true;
+            weapon_switch.checked = true;
+
+            if (em_switch.checked == true) {
+                em_section.style.visibility = "visible";
+            } else {
+                em_section.style.visibility = "hidden";
+            }
+            if (res_def_switch.checked == true) {
+                res_def_section.style.visibility = "visible"; 
+            } else {
+                res_def_section.style.visibility = "hidden";
+            }
+            if (weapon_switch.checked == true) {
+                weapon_section.style.visibility = "visible"; 
+            } else {
+                weapon_section.style.visibility = "hidden";
+            }
+        });
+
+        var total_damage_label = document.getElementById("total-damage");
+
+        //global stuff
+        var def_multiplier = 1;
+        function calculateTotalDamage() {         
+            var percent = 100;
+            var base_atk = 0;
+            var added_atk = 0;  
+            var elem_dmg_bonus = 1; 
+            var elem_dmg = 1;
+            var crit_dmg_percent = 1; 
+            var crit_dmg = 1;
+            var skill_multiplier_percent = 1;
+            var skill_dmg = 1;
+
+            if (document.getElementById("base-atk").value != 0 )  {
+                base_atk = parseInt(document.getElementById("base-atk").value);
+            }
+            if (document.getElementById("added-atk").value != 0 )  {
+                added_atk = parseInt(document.getElementById("added-atk").value);
+            }
+
+            if (document.getElementById("elem-dmg-bonus").value != 0 )  {
+                elem_dmg_bonus = parseInt(document.getElementById("elem-dmg-bonus").value);
+                var elem_dmg = 1 + (elem_dmg_bonus / percent);
+            }
+
+            if (document.getElementById("crit-dmg").value != 0 )  {
+                crit_dmg_percent = parseInt(document.getElementById("crit-dmg").value);
+                var crit_dmg = 1 + (crit_dmg_percent / percent);
+            } 
+
+            if (document.getElementById("skill-multiplier-input").value != 0 )  {
+                skill_multiplier_percent = parseInt(document.getElementById("skill-multiplier-input").value);
+                var skill_dmg = 1 + (skill_multiplier_percent / percent);
+            }
+    
+            var total_dmg = (base_atk + added_atk) * elem_dmg * crit_dmg * skill_dmg * def_multiplier * (1 - 0.10);
+            total_damage_label.innerHTML = total_dmg;
+        }
+        function enteredWorldLevel() {
+            if (world_level == 0) {
+                debug_text_label.innerHTML = "Please enter your world level and character level."
+            } else {
+                debug_text_label.style.display = "none";
+            }
+            var forms = document.getElementsByClassName("calc-locked");
+            if (world_level && char_level != 0) {     
+                for (var i = forms.length - 1; i >= 0; i--) {
+                    forms[i].removeAttribute('readonly');
+                }
+                if (document.getElementById("def-reduction").value != 0) {
+                    def_reduction = parseInt(document.getElementById("def-reduction").value);
+                }
+                var enemy_accuracy_lvl = document.getElementById("enemy-accuracy-lvl");
+
+                if (world_level == 1) {
+                    enemy_level = 24;
+                } else if (world_level == 2) {
+                    enemy_level = 30;
+                } else if (world_level == 3) {
+                    enemy_level = 41;
+                } else if (world_level == 4) {
+                    enemy_level = 52;
+                } else if (world_level == 5) {
+                    enemy_level = 63;
+                } else if (world_level == 6) {
+                    enemy_level = 74;
+                } else if (world_level == 7) {
+                    enemy_level = 82;
+                } else if (world_level == 8) {
+                    enemy_level = 85;
+                }
+
+                var def_reduction = 0;
+                def_multiplier = (char_level + 100) / ((char_level + 100) + (enemy_level + 100) * (1 - 0));
+
+                forms_debug.innerHTML = def_multiplier;
+            }     
+            world_lvl_debug.innerHTML = world_level;
+            char_lvl_debug.innerHTML = char_level;
+
+            
+        }
+        function increaseWorldLvl(lvl) { world_level = lvl; world_level_label.innerHTML = world_level; }
+        function increaseCharLvl(lvl) { char_level = lvl; char_level_label.innerHTML = char_level;  }
+
+        function emswitchcheck() {
+            if (em_switch.checked == true) {
+                em_section.style.visibility = "visible";
+            } else {
+                em_section.style.visibility = "hidden";
+            }
+        }
+        function resdefswitchcheck() {
+            if (res_def_switch.checked == true) {
+                res_def_section.style.visibility = "visible"; 
+            } else {
+                res_def_section.style.visibility = "hidden";
+            }
+        }
+        function weaponswitchcheck() {
+            if (weapon_switch.checked == true) {
+                weapon_section.style.visibility = "visible"; 
+            } else {
+                weapon_section.style.visibility = "hidden";
+            }
+        }
+        $(function() {
+            setInterval(calculateTotalDamage, 100);
+        });
+
+        $(function() {
+            setInterval(enteredWorldLevel, 100);
+        });
+        </script>
+    </body>
+</html>

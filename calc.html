@@ -1,0 +1,218 @@
+<html>
+    <head>
+        <title>Genshin Damage Calculator</title>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/padding.css">
+        <link rel="stylesheet" href="css/bootstrap-checkbox.css">
+        <style>
+        </style>
+        <script src="js/formula.js"></script>
+        <script src="js/switches.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <center>
+            <div class="main-page-wrapper">
+                <div class="main-page-subwrap">
+                    <div class="main-page">
+                        <h3 style="text-align: center; padding-top: 10px;">Genshin Damage Calculator</h3>
+                        <p>This is a genshin impact damage calculator. The formula used is found <a href="https://library.keqingmains.com/mechanics/combat/damage-formula">here.</a></p>
+                        <div class="row-calc">
+                            <div class="padding-sm"></div>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="world-lvl-dropdown" style="" data-bs-toggle="dropdown" aria-expanded="false">
+                                  World Level
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="world-lvl-dropdown">
+                                  <li><a class="dropdown-item" href="#">1</a></li>
+                                  <li><a class="dropdown-item" href="#">2</a></li>
+                                  <li><a class="dropdown-item" href="#">3</a></li>
+                                  <li><a class="dropdown-item" href="#">4</a></li>
+                                  <li><a class="dropdown-item" href="#">5</a></li>
+                                  <li><a class="dropdown-item" href="#">6</a></li>
+                                  <li><a class="dropdown-item" href="#">7</a></li>
+                                  <li><a class="dropdown-item" href="#">8</a></li>
+                                </ul>
+                            </div>
+                            <div class="padding-sm"></div>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="char-lvl-dropdown" style="" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Character Level
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="char-lvl-dropdown">
+                                  <li><a class="dropdown-item" href="#">10</a></li>
+                                  <li><a class="dropdown-item" href="#">20</a></li>
+                                  <li><a class="dropdown-item" href="#">30</a></li>
+                                  <li><a class="dropdown-item" href="#">40</a></li>
+                                  <li><a class="dropdown-item" href="#">50</a></li>
+                                  <li><a class="dropdown-item" href="#">80</a></li>
+                                  <li><a class="dropdown-item" href="#">90</a></li>
+                                </ul>
+                            </div>
+                            <div class="padding-sm"></div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Or input a specific level...</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="char-lvl">
+                            </div>
+                            <div class="padding-sm"></div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Base ATK</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="base-atk">
+                            </div>
+                            <div class="padding-sm"></div>
+                        </div>
+                        <div class="row-calc">
+                            <div class="padding-sm"></div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Added ATK</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="added-atk">
+                            </div>
+                            <div class="padding-sm"></div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Elem DMG Bonus%</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="elem-dmg-bonus">
+                            </div>
+                            <div class="padding-sm"></div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Crit Damage%</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="crit-dmg">
+                            </div>
+                            <div class="padding-sm"></div>
+                        </div>
+
+                        <div class="row-calc">
+                            <div class="padding-sm"></div>
+                            <div class="input-group mb-3" style="visibility: hidden;" id="skill-multiplier">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Skill Multiplier%</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="skill-multiplier-input">
+                            </div>
+                            <div class="padding-sm"></div>
+                            <div class="input-group mb-3" style="visibility: hidden;" id="em-multiplier">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Elemental Mastery</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="padding-sm"></div>
+                            <div class="input-group mb-3" style="visibility: hidden;" id="reaction-bonus-multiplier">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Reaction Bonus%</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                <button class="btn btn-outline-secondary" style="border-color: #ced4da;" type="button" id="info-def-decrease">?</button>
+                            </div>
+                            <div class="padding-sm"></div>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="transformative-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Transformative Reaction
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="transformative-dropdown">
+                                  <li><a class="dropdown-item" href="#">Overloaded</a></li>
+                                  <li><a class="dropdown-item" href="#">Shatter</a></li>
+                                  <li><a class="dropdown-item" href="#">Electro Charged</a></li>
+                                  <li><a class="dropdown-item" href="#">Swirl</a></li>
+                                  <li><a class="dropdown-item" href="#">Superconduct</a></li>
+                                </ul>
+                              </div>
+                            <div class="padding-sm"></div>
+                        </div>
+
+                        <div class="row-calc">
+                            <div class="padding-sm"></div>
+                            <div class="input-group mb-3" style="visibility: hidden;" id="res-decrease">
+                                <span class="input-group-text" id="inputGroup-sizing-default">RES Decrease%</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                <button class="btn btn-outline-secondary" style="border-color: #ced4da;" type="button" id="info-res-decrease">?</button>
+                            </div>
+                            <div class="padding-sm"></div>
+                            <div class="input-group mb-3" style="visibility: hidden;" id="def-decrease">
+                                <span class="input-group-text" id="inputGroup-sizing-default">DEF Decrease%</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                <button class="btn btn-outline-secondary" style="border-color: #ced4da;" type="button" id="info-def-decrease">?</button>
+                            </div>
+                            <div class="padding-sm"></div>
+                            <div class="input-group mb-3" style="" id="res-decrease">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Weapon Procs%</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                <button class="btn btn-outline-secondary" style="border-color: #ced4da;" type="button" id="info-res-decrease">?</button>
+                            </div>
+                            <div class="padding-sm"></div>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="world-lvl-dropdown" style="" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Scales from...
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="world-lvl-dropdown">
+                                  <li><a class="dropdown-item" href="#">HP</a></li>
+                                  <li><a class="dropdown-item" href="#">ATK</a></li>
+                                  <li><a class="dropdown-item" href="#">DEF</a></li>
+                                </ul>
+                            </div>
+                            <div class="padding-sm"></div>
+                        </div>
+                        <div class="row-calc">
+                            <div class="padding-sm"></div>
+                        </div>
+                        <div class="padding-sm"></div>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Add a multiplier</button>
+                        <div class="padding-sm"></div>
+                        <h5>Reaction Multiplier: (Vaporize and Melt only)</h5>
+                        <div class="calc-opts">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="1-switch">
+                                <label class="form-check-label" for="skill-switch">1x</label>
+                            </div>
+                            <div class="padding-sm"></div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="15-switch">
+                                <label class="form-check-label" for="skill-switch">1.5x</label>
+                            </div>
+                            <div class="padding-sm"></div>    
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="2-switch">
+                                <label class="form-check-label" for="skill-switch">2x</label>
+                            </div>
+                        </div>
+                        <div class="padding-sm"></div>
+                        <h5>Extra Options:</h5>
+                        <div class="calc-opts">
+                            <div class="form-check form-switch ">
+                                <input class="form-check-input" type="checkbox" id="skill-switch" onclick="skillswitchcheck();">
+                                <label class="form-check-label" for="skill-switch">Is a skill</label>
+                            </div>
+                            <div class="padding-sm"></div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="em-switch" onclick="emswitchcheck();">
+                                <label class="form-check-label" for="em-switch">Uses elemental mastery</label>
+                            </div>
+                            <div class="padding-sm"></div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="res-switch" onclick="resswitchcheck();">
+                                <label class="form-check-label" for="res-switch">Include RES decrease</label>
+                            </div>
+                            <div class="padding-sm"></div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="def-switch" onclick="defswitchcheck();">
+                                <label class="form-check-label" for="def-switch">Include DEF decrease</label>
+                            </div>
+                            <div class="padding-sm"></div>
+                        </div>
+                        <div class="calc-opts">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="transformative-switch" onclick="transformativeswitchcheck();">
+                                <label class="form-check-label" for="transformative-switch">Include transformative reactions</label>
+                            </div>
+                            <div class="padding-sm"></div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="def-switch" onclick="defswitchcheck();">
+                                <label class="form-check-label" for="def-switch">Include weapon and skill procs</label>
+                            </div>
+                        </div>
+                        <div class="padding-sm"></div>
+                        <h3>Total Damage:</h3>
+                        <h1 id="total-damage"></h1>
+                        <div class="padding-sm"></div>
+                        <h6>Made by Liqht</h6>
+                    </div>
+                </div>
+            </div>
+        </center>
+    </body>
+</html>

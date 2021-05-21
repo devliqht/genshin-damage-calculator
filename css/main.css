@@ -1,0 +1,84 @@
+* {
+    margin: 0;
+}
+
+body {
+    overflow-y: scroll;
+}
+
+.main-page-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+    margin-top: 30px;
+    margin-right: auto; margin-left: auto;
+}
+.main-page-subwrap {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+.info-page {
+    width: fit-content;
+    height: fit-content;
+    background: #f8f9fa;
+}
+.main-page {
+    width: fit-content;
+    height: fit-content;
+    background: #f8f9fa;
+}
+.calc-section {
+    display: flex;
+    flex-direction: column;
+    background: #ecedee;
+    padding: 7px;
+    margin-right: 9px; margin-left: 9px;
+}
+.calc-row-wrapper {
+    display: flex; 
+    flex-direction: row;
+    width: fit-content;
+}
+.calc-row {
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+    width: fit-content;
+}
+.calc-row > div {
+    margin: 5px;
+}
+.calc-column {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    width: fit-content;
+}
+.calc-opts {
+    position: relative;
+    display: flex;
+    bottom: 0;
+    width: fit-content;
+    height: fit-content;
+}
+.img-holder {
+    display: flex; margin: 5px;
+}
+.img-holder > img {
+    padding: 5px;
+}
+
+@media screen and (max-width: 894px) {
+    .calc-row, .main-page-subwrap, .img-holder {
+        flex-direction: column;
+    }
+    .main-page-wrapper, .main-page, .info-page {
+        width: 100%;
+    }
+    .disappear {
+        display: none;
+    }
+}
