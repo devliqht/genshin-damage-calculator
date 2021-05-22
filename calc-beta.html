@@ -5,22 +5,71 @@
         <link rel="stylesheet" href="css/padding.css">
         <link rel="stylesheet" href="css/bootstrap-checkbox.css">
         <style>
+
         </style>
         <script src="js/formula.js"></script>
         <script src="js/switches.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     </head>
-    <body>
+    <body style="background-color: #131212;">
         <div class="main-page-wrapper">
             <div class="main-page-subwrap">
+                <div class="info-page">
+                    <h3 style="margin: 10px; text-align: center;">Total Damage:</h3>
+                    <h1 style="margin: 10px; text-align: center;">~<span id="total-damage"></span></h1>
+                    <h6 style="text-align: center; color: #4f4f75;">Made by Liqht#8961</h6>
+                    <div class="padding-sm"></div>
+                    <div class="calc-section">
+                        <h5 style="text-align: center;">What is base ATK / Added ATK?</h5>
+                    </div>
+                    <div class="img-holder">
+                        <img src="assets/atk.PNG">
+                    </div>
+                    <p style="margin-left: 9px; margin-right: 9px;">The <strong>white text</strong> is the base ATK. The <strong>green text</strong> is the the added ATK.</p>
+                    <div class="calc-section">
+                        <h5 style="text-align: center;">Why is world level and character level needed?</h5>
+                    </div>
+                    <p style="margin-left: 9px; margin-right: 9px;">To get the most accurate results for your damage,  we must also take into account the enemy's DEF and RES. Both of which scales with the enemy's lvl and your current active character's lvl.</p>
+                    <div class="calc-section">
+                        <h5 style="text-align: center;">What is reaction bonus?</h5>
+                    </div>
+                    <p style="margin-left: 9px; margin-right: 9px;"><strong>Reaction bonus</strong> are percentage bonuses of Elemental Reactions from pieces such as 4 PC Thundering Fury, 4 PC Crimson Witch, 4 VV etc.</p>
+
+                    <div class="calc-section">
+                        <h5 style="text-align: center;">What is RES / DEF reduction?</h5>
+                    </div>
+                    <p style="margin-left: 9px; margin-right: 9px;"><strong>RES/DEF reduction</strong> refers to bonuses from skills, sets, constellations (and more) that reduces DEF and RES  like 4 VV, Zhongli's Shield, Eula's E skill etc.</p>
+
+                    <div class="calc-section">
+                        <h5 style="text-align: center;">What are weapon procs?</h5>
+                    </div>
+                    <p style="margin-left: 9px; margin-right: 9px;"><strong>Weapon procs</strong> are seperate triggered-effects bonuses from weapons. Examples of this is Prototype Archaic 240% ATK in an AOE, Dragonspine Spear Icicle, Snow-Tombed star silver icicle, etc. They don't count to your single-hit damage but counts to your total damage.</p>
+                    <div class="calc-section">
+                        <h5 style="text-align: center;">Missed something?</h5>
+                    </div>
+                    <p style="margin-left: 9px; margin-right: 9px;">You can add your own multiplier if you think we've missed something.</p>
+                </div>
                 <div class="main-page">
                     <h3 style="margin: 10px; text-align: center;">Genshin Damage Calculator</h3>
-                    <h5 style="margin: 10px; text-align: center;">A simple, lightweight genshin total damage calculator. Fully editable variables, formula is found <a href="https://library.keqingmains.com/mechanics/combat/damage-formula">here.</a></h5>
+                    <h5 style="margin: 10px; text-align: center;">A simple, lightweight genshin total damage calculator. Fully editable variables, formula is found <a style="color: #4f4f75;"href="https://library.keqingmains.com/mechanics/combat/damage-formula">here.</a></h5>
                     <p style="text-align: center; color: red;" id="debug-text"></p>
+                    <div class="calc-row-wrapper">
+                        <div class="calc-row">
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Add a multiplier</button>
+                        </div>
+                    </div>
                     <div class="calc-section">
                         <h5 style="text-align: left;">Player Info</h5>
                         <div class="form-check form-switch">
+                            <style>
+                                .form-check-input {
+                                    background-color: #3a3b3c; border-color: #242526;
+                                }
+                                .form-check-input:checked {
+                                    border-color: #4f4f75; background-color: #4f4f75; color: #d5d6da;
+                                }
+                            </style>
                             <input class="form-check-input" type="checkbox" id="accuracy-switch" onclick="accuracyswitchcheck();">
                             <label class="form-check-label" for="accuracy-switch">Accuracy Mode</label>
                         </div>
@@ -28,7 +77,7 @@
                     <div class="calc-row-wrapper">
                         <div class="calc-row">
                             <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="world-lvl-dropdown" style="" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn btn-secondary dropdown-toggle" style="border-color: #4f4f75; background-color: #4f4f75; color: #d5d6da;" type="button" id="world-lvl-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                   World Level: <span id="world-lvl"></span>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="world-lvl-dropdown">
@@ -43,7 +92,7 @@
                                 </ul>
                             </div>
                             <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="char-lvl-dropdown" style="" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn btn-secondary dropdown-toggle" style="border-color: #4f4f75; background-color: #4f4f75; color: #d5d6da;" type="button" id="char-lvl-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                     Character Level: <span id="char-lvl"></span>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="char-lvl-dropdown">
@@ -58,9 +107,9 @@
                                     <li><a class="dropdown-item" onclick="increaseCharLvl(90);">90</a></li>
                                 </ul>
                             </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Enemy Level</span>
-                                <input readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="enemy-accuracy-lvl">
+                            <div class="input-group mb-3" style="visibility: hidden;" id="enemy-accuracy-lvl">
+                                <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">Enemy Level</span>
+                                <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="enemy-lvl">
                             </div>
                         </div>
                     </div>
@@ -70,12 +119,12 @@
                     <div class="calc-row-wrapper">
                         <div class="calc-row">
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Base ATK</span>
-                                <input readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="base-atk">
+                                <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">Base ATK</span>
+                                <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="base-atk">
                             </div>
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Added ATK</span>
-                                <input readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="added-atk">
+                                <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">Added ATK</span>
+                                <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="added-atk">
                             </div>
                         </div>
                     </div>
@@ -84,37 +133,56 @@
                     </div>
                     <div class="calc-row-wrapper">
                         <div class="calc-row">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Elem DMG Bonus%</span>
-                                <input readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="elem-dmg-bonus">
+                            <div class="input-group">
+                                <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">Elem DMG Bonus%</span>
+                                <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="elem-dmg-bonus">
                             </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Crit DMG%</span>
-                                <input readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="crit-dmg">
+                            <div class="input-group" id="skill-multiplier">
+                                <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">Skill Multiplier%</span>
+                                <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="skill-multiplier-input">
                             </div>
-                            <div class="input-group mb-3" id="skill-multiplier">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Skill Multiplier%</span>
-                                <input readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="skill-multiplier-input">
+                        </div>
+                    </div>
+                    <div class="calc-row-wrapper">
+                        <div class="calc-row">
+                            <div class="input-group">
+                                <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">Crit Rate%</span>
+                                <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="crit-rate">
+                            </div>
+                            <div class="input-group">
+                                <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">Crit DMG%</span>
+                                <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="crit-dmg">
                             </div>
                         </div>
                     </div>
                     <div id="em-section" style="visibility: hidden;">
                         <div class="calc-section">
                             <h5>Elemental Mastery</h5>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="transformative-switch" onclick="transformativeswitchcheck();">
+                                <label class="form-check-label" for="transformative-switch">Include Transformative Reaction</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="vap-switch" onclick="vaporizemeltswitchcheck();">
+                                <label class="form-check-label" for="vap-switch">Is using vaporize/melt</label>
+                            </div>
                         </div>
                         <div class="calc-row-wrapper">
                             <div class="calc-row">
-                                <div class="input-group mb-3" id="em-multiplier">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Elemental Mastery</span>
-                                    <input readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                <div class="input-group" id="em-multiplier">
+                                    <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">Elemental Mastery</span>
+                                    <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                                 </div>
-                                <div class="input-group mb-3" id="reaction-bonus-multiplier">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Reaction Bonus%</span>
-                                    <input readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                                    <button class="btn btn-outline-secondary" style="border-color: #ced4da;" type="button" id="info-reaction-bonus">?</button>
+                                <div class="input-group" id="reaction-bonus-multiplier">
+                                    <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">Reaction Bonus%</span>
+                                    <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                                 </div>
-                                <div class="dropdown" id="transformative-reaction">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="transformative-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            </div>
+                        </div>
+                        <div class="calc-row-wrapper">
+                            <div class="calc-row">
+                                <div class="dropdown mb-3" style="visibility: hidden;" id="transformative-reaction">
+                                    <button class="btn btn-secondary dropdown-toggle" style="border-color: #4f4f75; background-color: #4f4f75; color: #d5d6da;" type="button" id="transformative-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                     Transformative Reaction 
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="transformative-dropdown">
@@ -125,8 +193,8 @@
                                     <li><a class="dropdown-item" href="#">Superconduct</a></li>
                                     </ul>
                                 </div>
-                                <div class="dropdown" id="vapmelt">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="vapmelt-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="dropdown mb-3" style="visibility: hidden;" id="vapmelt">
+                                    <button class="btn btn-secondary dropdown-toggle" style="border-color: #4f4f75; background-color: #4f4f75; color: #d5d6da;" type="button" id="vapmelt-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                     Vaporize/Melt
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="vapmelt-dropdown">
@@ -145,14 +213,12 @@
                         <div clsas="calc-row-wrapper">
                             <div class="calc-row">
                                 <div class="input-group mb-3" id="res-decrease">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">RES reduction%</span>
-                                    <input readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="res-reduction">
-                                    <button class="btn btn-outline-secondary" style="border-color: #ced4da;" type="button" id="info-res-decrease">?</button>
+                                    <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">RES reduction%</span>
+                                    <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="res-reduction">
                                 </div>
                                 <div class="input-group mb-3" id="def-decrease">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">DEF reduction%</span>
-                                    <input readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="def-reduction">
-                                    <button class="btn btn-outline-secondary" style="border-color: #ced4da;" type="button" id="info-def-decrease">?</button>
+                                    <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">DEF reduction%</span>
+                                    <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="def-reduction">
                                 </div>
                             </div>
                         </div>
@@ -164,12 +230,11 @@
                         <div class="calc-row-wrapper">
                             <div class="calc-row">
                                 <div class="input-group mb-3" id="weapon-procs">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Weapon Procs%</span>
-                                    <input readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                                    <button class="btn btn-outline-secondary" style="border-color: #ced4da;" type="button" id="info-weapon-procs">?</button>
+                                    <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">Weapon Procs%</span>
+                                    <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                                 </div>
                                 <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="weapon-procs-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="btn btn-secondary dropdown-toggle" style="border-color: #4f4f75; background-color: #4f4f75; color: #d5d6da;" type="button" id="weapon-procs-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                       Scales from...
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="weapon-procs-dropdown">
@@ -183,7 +248,6 @@
                     </div>
                     <div class="calc-row-wrapper">
                         <div class="calc-row">
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Add a multiplier</button>
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="em-switch" onclick="emswitchcheck();">
                                 <label class="form-check-label" for="em-switch">Uses elemental mastery</label>
@@ -203,77 +267,57 @@
                         <p>worldLvl: <span id="world-lvl-debug"></span></p>
                         <p>charLvl: <span id="char-lvl-debug"></span></p>
                         <p>defMultiplier: <span id="forms-debug"></span></p>
+                        <p>resistance: <span id="res-debug"></span></p>
+                        <p>resMultiplier: <span id="res-mult-debug"></span></p>
+                        <p>avgCrit: <span id="avgcrit-debug"></span></p>
+                        <p>enemyLvl: <span id="enemylvl-debug"></span></p>
                     </div>
                 </div>
                 <div class="padding-sm"></div>
-                <div class="info-page">
-                    <h3 style="margin: 10px; text-align: center;">Total Damage:</h3>
-                    <h1 style="margin: 10px; text-align: center;">~<span id="total-damage"></span></h1>
-                    <h6 style="text-align: center;">Made by Liqht#8961</h6>
-                    <div class="padding-sm"></div>
-                    <div class="calc-section">
-                        <h5 style="text-align: center;">What is base ATK / Added ATK?</h5>
-                    </div>
-                    <div class="img-holder">
-                        <img src="assets/atk.PNG">
-                    </div>
-                    <p style="margin-left: 9px; margin-right: 9px;">The <strong>white text</strong> is the <mark>base ATK</mark>. The <strong>green text</strong> is the <mark>the added ATK.</mark></p>
-                    <div class="calc-section">
-                        <h5 style="text-align: center;">Why is world level and character level needed?</h5>
-                    </div>
-                    <p style="margin-left: 9px; margin-right: 9px;">To get the most accurate results for your damage,  we must also take into account <br class="disappear"> the enemy's DEF and RES. Both of which scales with the enemy's lvl and <br class="disappear"> your current active character's lvl.</p>
-                    <div class="calc-section">
-                        <h5 style="text-align: center;">What is reaction bonus?</h5>
-                    </div>
-                    <p style="margin-left: 9px; margin-right: 9px;"><strong>Reaction bonus</strong> are percentage bonuses of Elemental Reactions from pieces <br> such as 4 PC Thundering Fury, 4 PC Crimson Witch, 4 VV etc.</p>
-
-                    <div class="calc-section">
-                        <h5 style="text-align: center;">What is RES / DEF reduction?</h5>
-                    </div>
-                    <p style="margin-left: 9px; margin-right: 9px;"><strong>RES/DEF reduction</strong> refers to bonuses from skills, sets, constellations (and more) <br class="disappear">that reduces DEF and RES  like 4 VV, Zhongli's Shield, Eula's E skill etc.</p>
-
-                    <div class="calc-section">
-                        <h5 style="text-align: center;">What are weapon procs?</h5>
-                    </div>
-                    <p style="margin-left: 9px; margin-right: 9px;"><strong>Weapon procs</strong> are seperate triggered-effects bonuses from weapons. <br> Examples of this is Prototype Archaic 240% ATK in an AOE, Dragonspine Spear <br class="disappear"> Icicle, Snow-Tombed star silver icicle, etc. They don't count to your <br class="disappear"> single-hit damage but counts to your total damage.</p>
-                    <div class="calc-section">
-                        <h5 style="text-align: center;">Missed something?</h5>
-                    </div>
-                    <p style="margin-left: 9px; margin-right: 9px;">You can add your own multiplier if you think we've missed something.</p>
-                </div>
-
             </div>
             
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script>
-        //$('input').on('input', function() {
-        //    var c = this.selectionStart,
-        //        r = /[^a-z0-9]/gi,
-        //        v = $(this).val();
-        //    if(r.test(v)) {
-        //    $(this).val(v.replace(r, ''));
-        //    c--;
-        //    }
-        //    this.setSelectionRange(c, c);
-        //});
 
+        // SWITCHES
         var em_switch = document.getElementById("em-switch");
         var res_def_switch = document.getElementById("res-def-switch");
         var weapon_switch = document.getElementById("weapon-procs-switch");
+        var accuracy_switch = document.getElementById("accuracy-switch");
+        var transformative_switch = document.getElementById("transformative-switch");
+        var vap_switch = document.getElementById("vap-switch");
+
+        var enemy_accuracy_lvl = document.getElementById("enemy-accuracy-lvl");
+
+        // SECTIONS
         var em_section = document.getElementById("em-section");
         var res_def_section = document.getElementById("res-def-section");
         var weapon_section = document.getElementById("weapon-procs-section");
+        var transformative_drop_base = document.getElementById("transformative-reaction");
+        var vapmelt_drop_base = document.getElementById("vapmelt")
+
+        // LABELS
         var debug_text_label = document.getElementById("debug-text");
         var world_level_label = document.getElementById("world-lvl");
         var char_level_label = document.getElementById("char-lvl");
+        var total_damage_label = document.getElementById("total-damage");
 
+        // DEBUG
         var world_lvl_debug = document.getElementById("world-lvl-debug");
         var char_lvl_debug = document.getElementById("char-lvl-debug");
         var forms_debug = document.getElementById("forms-debug");
+        var avgcrit_debug = document.getElementById("avgcrit-debug");
+        var enemylvl_debug = document.getElementById("enemylvl-debug");
+        var res_debug = document.getElementById("res-debug");
+        var res_mult_debug = document.getElementById("res-mult-debug");
+
+        // GLOBAL VARIABLES
         var world_level = 0;
         var char_level = 0;
         var enemy_level = 0;
+        var def_multiplier = 1;
+        var res_multiplier = 1;
 
         $(document).ready(function() {
             em_switch.checked = true;
@@ -297,20 +341,27 @@
             }
         });
 
-        var total_damage_label = document.getElementById("total-damage");
-
-        //global stuff
-        var def_multiplier = 1;
-        function calculateTotalDamage() {         
+        function calculateTotalDamage() {           
+            // VARIABLES
             var percent = 100;
+            
             var base_atk = 0;
-            var added_atk = 0;  
+            var added_atk = 0; 
+
             var elem_dmg_bonus = 1; 
             var elem_dmg = 1;
-            var crit_dmg_percent = 1; 
-            var crit_dmg = 1;
+
+            var crit_rate_percent = 0;
+            var crit_rate = 0;
+
+            var crit_dmg_percent = 0; 
+            var crit_dmg = 0;
+
             var skill_multiplier_percent = 1;
             var skill_dmg = 1;
+
+            var def_reduction = 0;
+            var res_reduction = 0;
 
             if (document.getElementById("base-atk").value != 0 )  {
                 base_atk = parseInt(document.getElementById("base-atk").value);
@@ -321,21 +372,60 @@
 
             if (document.getElementById("elem-dmg-bonus").value != 0 )  {
                 elem_dmg_bonus = parseInt(document.getElementById("elem-dmg-bonus").value);
-                var elem_dmg = 1 + (elem_dmg_bonus / percent);
+                elem_dmg = 1 + (elem_dmg_bonus / percent);
             }
 
             if (document.getElementById("crit-dmg").value != 0 )  {
                 crit_dmg_percent = parseInt(document.getElementById("crit-dmg").value);
-                var crit_dmg = 1 + (crit_dmg_percent / percent);
+                crit_dmg = (crit_dmg_percent / percent);
+            } 
+            if (document.getElementById("crit-rate").value != 0 )  {
+                crit_rate_percent = parseInt(document.getElementById("crit-rate").value);
+                crit_rate = (crit_rate_percent / percent);
             } 
 
             if (document.getElementById("skill-multiplier-input").value != 0 )  {
                 skill_multiplier_percent = parseInt(document.getElementById("skill-multiplier-input").value);
-                var skill_dmg = 1 + (skill_multiplier_percent / percent);
+                skill_dmg = 1 + (skill_multiplier_percent / percent);
             }
-    
-            var total_dmg = (base_atk + added_atk) * elem_dmg * crit_dmg * skill_dmg * def_multiplier * (1 - 0.10);
-            total_damage_label.innerHTML = total_dmg;
+
+            if (document.getElementById("def-reduction").value != 0) {
+                def_reduction = parseInt(document.getElementById("def-reduction").value);
+            }
+
+            if (document.getElementById("res-reduction").value != 0) {
+                res_reduction = parseInt(document.getElementById("res-reduction").value);
+            }
+
+            // DEF Multiplier
+            def_multiplier = (char_level + 100) / (((char_level + 100) + (enemy_level + 100)) * (1 - (def_reduction / percent)));
+            
+            var base_resistance = 10;
+            var resistance = (base_resistance - res_reduction) / percent;
+
+            // RES Multiplier
+            if (resistance < 0) {
+                res_multiplier = 1 - (resistance / 2);
+            } 
+            if (0 <= resistance && resistance < 0.75) {
+                res_multiplier = 1 - resistance;
+            }
+            if (resistance >= 0.75) {
+                res_multiplier = 1 / (4 * resistance + 1);
+            }
+
+            // Average Crit
+            var avg_crit = 1 + (crit_rate * crit_dmg);
+            
+            // Formula
+            var total_dmg = (base_atk + added_atk) * elem_dmg * avg_crit * skill_dmg * def_multiplier * res_multiplier;
+            total_damage_label.innerHTML = Math.round(total_dmg);
+
+            // Debug
+            forms_debug.innerHTML = def_multiplier;
+            avgcrit_debug.innerHTML = avg_crit;
+            res_debug.innerHTML = resistance;
+            res_mult_debug.innerHTML = res_multiplier;
         }
         function enteredWorldLevel() {
             if (world_level == 0) {
@@ -343,18 +433,10 @@
             } else {
                 debug_text_label.style.display = "none";
             }
-            var forms = document.getElementsByClassName("calc-locked");
-            if (world_level && char_level != 0) {     
-                for (var i = forms.length - 1; i >= 0; i--) {
-                    forms[i].removeAttribute('readonly');
-                }
-                if (document.getElementById("def-reduction").value != 0) {
-                    def_reduction = parseInt(document.getElementById("def-reduction").value);
-                }
-                var enemy_accuracy_lvl = document.getElementById("enemy-accuracy-lvl");
-
+            if (accuracy_switch.checked == false) {
+                document.getElementById("world-lvl-dropdown").classList.remove("disabled");
                 if (world_level == 1) {
-                    enemy_level = 24;
+                enemy_level = 24;
                 } else if (world_level == 2) {
                     enemy_level = 30;
                 } else if (world_level == 3) {
@@ -370,17 +452,27 @@
                 } else if (world_level == 8) {
                     enemy_level = 85;
                 }
+            } else if (accuracy_switch.checked == true) {
+                if (document.getElementById("enemy-lvl").value != 0) {
+                    enemy_level = parseInt(document.getElementById("enemy-lvl").value);
+                }
+                document.getElementById("world-lvl-dropdown").classList.add("disabled");
+            }
 
-                var def_reduction = 0;
-                def_multiplier = (char_level + 100) / ((char_level + 100) + (enemy_level + 100) * (1 - 0));
+            // When entered world level and character level, unlock forms
+            var forms = document.getElementsByClassName("calc-locked");
 
-                forms_debug.innerHTML = def_multiplier;
-            }     
+            if ((world_level || enemy_level) && char_level != 0) {     
+                for (var i = forms.length - 1; i >= 0; i--) {
+                    forms[i].removeAttribute('readonly');
+                }
+            }
+
+            enemylvl_debug.innerHTML = enemy_level;    
             world_lvl_debug.innerHTML = world_level;
             char_lvl_debug.innerHTML = char_level;
-
-            
         }
+
         function increaseWorldLvl(lvl) { world_level = lvl; world_level_label.innerHTML = world_level; }
         function increaseCharLvl(lvl) { char_level = lvl; char_level_label.innerHTML = char_level;  }
 
@@ -404,6 +496,27 @@
             } else {
                 weapon_section.style.visibility = "hidden";
             }
+        }
+        function accuracyswitchcheck() {
+            if (accuracy_switch.checked == true) {
+                enemy_accuracy_lvl.style.visibility = "visible"; 
+            } else {
+                enemy_accuracy_lvl.style.visibility = "hidden";
+            }  
+        }
+        function transformativeswitchcheck() {
+            if (transformative_switch.checked == true) {
+                transformative_drop_base.style.visibility = "visible"; 
+            } else {
+                transformative_drop_base.style.visibility = "hidden";
+            }  
+        }
+        function vaporizemeltswitchcheck() {
+            if (vap_switch.checked == true) {
+                vapmelt_drop_base.style.visibility = "visible"; 
+            } else {
+                vapmelt_drop_base.style.visibility = "hidden";
+            }   
         }
         $(function() {
             setInterval(calculateTotalDamage, 100);

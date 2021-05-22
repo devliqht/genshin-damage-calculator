@@ -6,6 +6,10 @@ body {
     overflow-y: scroll;
 }
 
+p, h1, h2, h3, h4, h5, h6, label, input {
+    color: #d5d6da;
+}
+
 .main-page-wrapper {
     display: flex;
     justify-content: center;
@@ -21,35 +25,34 @@ body {
     flex-direction: row;
 }
 .info-page {
-    width: fit-content;
+    width: 500px;
     height: fit-content;
-    background: #f8f9fa;
+    background: #161616;
 }
 .main-page {
     width: fit-content;
     height: fit-content;
-    background: #f8f9fa;
+    background: #161616;
 }
 .calc-section {
     display: flex;
     flex-direction: column;
-    background: #ecedee;
+    background: #1d1d1d;
     padding: 7px;
     margin-right: 9px; margin-left: 9px;
 }
 .calc-row-wrapper {
     display: flex; 
     flex-direction: row;
-    width: fit-content;
+    width: 700px;
 }
 .calc-row {
     display: flex;
     flex-direction: row;
     margin: 5px;
-    width: fit-content;
 }
 .calc-row > div {
-    margin: 5px;
+    margin: 3px;
 }
 .calc-column {
     display: flex;
@@ -69,13 +72,17 @@ body {
 }
 .img-holder > img {
     padding: 5px;
+    max-width: 95%;
 }
 
-@media screen and (max-width: 894px) {
-    .calc-row, .main-page-subwrap, .img-holder {
+@media screen and (max-width: 794px) {
+    .calc-row, .img-holder {
         flex-direction: column;
     }
-    .main-page-wrapper, .main-page, .info-page {
+    .main-page-subwrap {
+        flex-direction: column-reverse;
+    }
+    .main-page-wrapper, .main-page, .info-page, .calc-row-wrapper {
         width: 100%;
     }
     .disappear {
