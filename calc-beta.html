@@ -17,7 +17,8 @@
                     <div class="total-damage-pc">
                         <h3 style="margin: 10px; text-align: center;">Total Damage:</h3>
                         <h1 style="margin: 10px; text-align: center;">~<span id="total-damage"></span></h1>
-                        <h6 style="text-align: center; color: #4f4f75;">Made by Liqht#8961</h6>
+                        <h6 style="text-align: center; color: #9292d3;">Made by Liqht#8961</h6>
+                        <h6 style="text-align: center;">To get the highest possible damage, snapshot your stats when you execute your usual team combo.</h6>
                     </div>
                     <div class="padding-sm"></div>
                     <div class="calc-section">
@@ -53,11 +54,11 @@
                 <div class="main-page">
                     <h3 style="margin: 10px; text-align: center;">Genshin Damage Calculator</h3>
                     <h5 style="margin: 10px; text-align: center;">A simple, lightweight genshin total damage calculator. Fully editable variables, formula is found <a style="color: #4f4f75;"href="https://library.keqingmains.com/mechanics/combat/damage-formula">here.</a></h5>
-                    <p style="text-align: center; color: red;" id="debug-text"></p>
+                    <h5 style="text-align: center; color: #9292d3;" id="debug-text"></h5>
                     <div class="total-damage-mobile">
                         <h3 style="margin: 10px; text-align: center;">Total Damage:</h3>
                         <h1 style="margin: 10px; text-align: center;">~<span id="total-damage-mobile"></span></h1>
-                        <h6 style="text-align: center; color: #4f4f75;">Made by Liqht#8961</h6>
+                        <h6 style="text-align: center; color: #9292d3;">Made by Liqht#8961</h6>
                     </div>
                     <div class="calc-row-wrapper">
                         <div class="calc-row">
@@ -65,7 +66,7 @@
                         </div>
                     </div>
                     <div class="calc-section">
-                        <h5 style="text-align: left;">Player Info</h5>
+                        <h5 style="text-align: left;">Player Info <span style="color: rgb(226, 123, 123); font-size: 15px;">required to unlock other inputs</span></h5>
                         <div class="form-check form-switch">
                             <style>
                                 .form-check-input {
@@ -160,7 +161,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="em-section" style="visibility: hidden;">
+                    <div id="em-section">
                         <div class="calc-section">
                             <h5>Elemental Mastery</h5>
                             <div class="form-check form-switch">
@@ -174,19 +175,29 @@
                         </div>
                         <div class="calc-row-wrapper">
                             <div class="calc-row">
-                                <div class="input-group" id="em-multiplier">
+                                <div class="input-group">
                                     <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">Elemental Mastery</span>
-                                    <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="em-input">
                                 </div>
-                                <div class="input-group" id="reaction-bonus-multiplier">
+                                <div class="input-group">
                                     <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">Reaction Bonus%</span>
-                                    <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="reaction-bonus-multiplier">
                                 </div>
                             </div>
                         </div>
                         <div class="calc-row-wrapper">
                             <div class="calc-row">
-                                <div class="dropdown mb-3" style="visibility: hidden;" id="transformative-reaction">
+                                <div class="dropdown" id="vapmelt">
+                                    <button class="btn btn-secondary dropdown-toggle" style="border-color: #4f4f75; background-color: #4f4f75; color: #d5d6da;" type="button" id="vapmelt-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Vaporize/Melt <span id="em-multiplier-label"></span>x
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="vapmelt-dropdown">
+                                    <li><a class="dropdown-item" onclick="setEMBaseMultiplier(1)">1x</a></li>
+                                    <li><a class="dropdown-item" onclick="setEMBaseMultiplier(1.5)">1.5x</a></li>
+                                    <li><a class="dropdown-item" onclick="setEMBaseMultiplier(2)">2x</a></li>
+                                    </ul>
+                                </div>
+                                <div class="dropdown" id="transformative-reaction">
                                     <button class="btn btn-secondary dropdown-toggle" style="border-color: #4f4f75; background-color: #4f4f75; color: #d5d6da;" type="button" id="transformative-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                     Transformative Reaction 
                                     </button>
@@ -198,20 +209,10 @@
                                     <li><a class="dropdown-item" href="#">Superconduct</a></li>
                                     </ul>
                                 </div>
-                                <div class="dropdown mb-3" style="visibility: hidden;" id="vapmelt">
-                                    <button class="btn btn-secondary dropdown-toggle" style="border-color: #4f4f75; background-color: #4f4f75; color: #d5d6da;" type="button" id="vapmelt-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Vaporize/Melt
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="vapmelt-dropdown">
-                                    <li><a class="dropdown-item" href="#">1x</a></li>
-                                    <li><a class="dropdown-item" href="#">1.5x</a></li>
-                                    <li><a class="dropdown-item" href="#">2x</a></li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                     </div>
-                    <div id="res-def-section" style="visibility: hidden;">
+                    <div id="res-def-section">
                         <div class="calc-section">
                             <h5>RES / DEF Multipliers</h5>
                         </div>
@@ -228,7 +229,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="weapon-procs-section" style="visibility: hidden">
+                    <div id="weapon-procs-section">
                         <div class="calc-section">
                             <h5>Weapon/Skill Procs</h5>
                         </div>
@@ -251,22 +252,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="calc-row-wrapper">
-                        <div class="calc-row">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="em-switch" onclick="emswitchcheck();">
-                                <label class="form-check-label" for="em-switch">Uses elemental mastery</label>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="res-def-switch" onclick="resdefswitchcheck();">
-                                <label class="form-check-label" for="res-switch">Include RES / DEF reduction</label>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="weapon-procs-switch" onclick="weaponswitchcheck();">
-                                <label class="form-check-label" for="weapon-procs-switch">Include weapon and skill procs</label>
-                            </div>
-                        </div>
-                    </div>
                     <div class="calc-section" id="debug-console">
                         <style>
                             p {
@@ -276,11 +261,12 @@
                         <h5>Debug Console</h5>
                         <p>worldLvl: <span id="world-lvl-debug"></span></p>
                         <p>charLvl: <span id="char-lvl-debug"></span></p>
-                        <p>defMultiplier: <span id="forms-debug"></span></p>
+                        <p>defMultiplier: <span id="def-debug"></span></p>
                         <p>resistance: <span id="res-debug"></span></p>
                         <p>resMultiplier: <span id="res-mult-debug"></span></p>
                         <p>avgCrit: <span id="avgcrit-debug"></span></p>
                         <p>enemyLvl: <span id="enemylvl-debug"></span></p>
+                        <p>emMultiplier: <span id="em-mult-debug"></span></p>
                     </div>
                 </div>
                 <div class="padding-sm"></div>
@@ -288,222 +274,168 @@
             
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script>
-
+        <script type="text/javascript">
         // SWITCHES
-        var em_switch = document.getElementById("em-switch");
-        var res_def_switch = document.getElementById("res-def-switch");
-        var weapon_switch = document.getElementById("weapon-procs-switch");
-        var accuracy_switch = document.getElementById("accuracy-switch");
+        var em_switch             = document.getElementById("em-switch");
+        var res_def_switch        = document.getElementById("res-def-switch");
+        var weapon_switch         = document.getElementById("weapon-procs-switch");
+        var accuracy_switch       = document.getElementById("accuracy-switch");
         var transformative_switch = document.getElementById("transformative-switch");
-        var vap_switch = document.getElementById("vap-switch");
+        var vap_switch            = document.getElementById("vap-switch");
 
         var enemy_accuracy_lvl = document.getElementById("enemy-accuracy-lvl");
 
         // SECTIONS
-        var em_section = document.getElementById("em-section");
-        var res_def_section = document.getElementById("res-def-section");
-        var weapon_section = document.getElementById("weapon-procs-section");
+        var em_section               = document.getElementById("em-section");
+        var res_def_section          = document.getElementById("res-def-section");
+        var weapon_section           = document.getElementById("weapon-procs-section");
         var transformative_drop_base = document.getElementById("transformative-reaction");
-        var vapmelt_drop_base = document.getElementById("vapmelt")
+        var vapmelt_drop_base        = document.getElementById("vapmelt");
+        var vapmelt_dropdown         = document.getElementById("vapmelt-dropdown");
+        var transformative_dropdown  = document.getElementById("transformative-dropdown")
 
         // LABELS
-        var debug_text_label = document.getElementById("debug-text");
-        var world_level_label = document.getElementById("world-lvl");
-        var char_level_label = document.getElementById("char-lvl");
-        var total_damage_label = document.getElementById("total-damage");
+        var debug_text_label          = document.getElementById("debug-text");
+        var world_level_label         = document.getElementById("world-lvl");
+        var char_level_label          = document.getElementById("char-lvl");
+        var total_damage_label        = document.getElementById("total-damage");
         var total_damage_label_mobile = document.getElementById("total-damage-mobile");
+        var em_mult_label             = document.getElementById("em-multiplier-label");
 
-        var world_lvl_debug = document.getElementById("world-lvl-debug");
-        var char_lvl_debug = document.getElementById("char-lvl-debug");
-        var forms_debug = document.getElementById("forms-debug");
-        var avgcrit_debug = document.getElementById("avgcrit-debug");
-        var enemylvl_debug = document.getElementById("enemylvl-debug");
-        var res_debug = document.getElementById("res-debug");
-        var res_mult_debug = document.getElementById("res-mult-debug");
+        var worldD    = document.getElementById("world-lvl-debug");
+        var charD     = document.getElementById("char-lvl-debug");
+        var defD      = document.getElementById("def-debug");
+        var avgcritD  = document.getElementById("avgcrit-debug");
+        var enemylvlD = document.getElementById("enemylvl-debug");
+        var resD      = document.getElementById("res-debug");
+        var res_multD = document.getElementById("res-mult-debug");
+        var em_multD  = document.getElementById("em-mult-debug");
 
         // GLOBAL VARIABLES
-        var world_level = 0;
-        var char_level = 0;
-        var enemy_level = 0;
-        var def_multiplier = 1;
-        var res_multiplier = 1;
+        var percent                  = 100;
+
+        var world_level              = 0;
+        var char_level               = 0;
+        var enemy_level              = 0;
+
+        var def_multiplier           = 1;
+        var res_multiplier           = 1;
+
+        var base_atk                 = 0;
+        var added_atk                = 0; 
+
+        var elem_dmg_bonus           = 1; 
+        var elem_dmg                 = 1;
+
+        var crit_rate_percent        = 0;
+        var crit_rate                = 0;
+        var crit_dmg_percent         = 0; 
+        var crit_dmg                 = 0;
+
+        var skill_multiplier_percent = 1;
+        var skill_dmg                = 1;
+
+        var def_reduction            = 0;
+        var res_reduction            = 0;
+
+        var vapmelt_base_mult        = 1;
+        var em                       = 0;
+        var reaction_bonus           = 0;
 
         $(document).ready(function() {
-            em_switch.checked = true;
-            res_def_switch.checked = true;
-            weapon_switch.checked = true;
 
-            if (em_switch.checked == true) {
-                em_section.style.visibility = "visible";
-            } else {
-                em_section.style.visibility = "hidden";
-            }
-            if (res_def_switch.checked == true) {
-                res_def_section.style.visibility = "visible"; 
-            } else {
-                res_def_section.style.visibility = "hidden";
-            }
-            if (weapon_switch.checked == true) {
-                weapon_section.style.visibility = "visible"; 
-            } else {
-                weapon_section.style.visibility = "hidden";
-            }
         });
 
         function calculateTotalDamage() {           
-            // VARIABLES
-            var percent = 100;
-            
-            var base_atk = 0;
-            var added_atk = 0; 
-
-            var elem_dmg_bonus = 1; 
-            var elem_dmg = 1;
-
-            var crit_rate_percent = 0;
-            var crit_rate = 0;
-
-            var crit_dmg_percent = 0; 
-            var crit_dmg = 0;
-
-            var skill_multiplier_percent = 1;
-            var skill_dmg = 1;
-
-            var def_reduction = 0;
-            var res_reduction = 0;
-
-            if (document.getElementById("base-atk").value != 0 )  {
-                base_atk = parseInt(document.getElementById("base-atk").value);
-            }
-            if (document.getElementById("added-atk").value != 0 )  {
-                added_atk = parseInt(document.getElementById("added-atk").value);
-            }
-
-            if (document.getElementById("elem-dmg-bonus").value != 0 )  {
-                elem_dmg_bonus = parseInt(document.getElementById("elem-dmg-bonus").value);
-                elem_dmg = 1 + (elem_dmg_bonus / percent);
-            }
-
-            if (document.getElementById("crit-dmg").value != 0 )  {
-                crit_dmg_percent = parseInt(document.getElementById("crit-dmg").value);
-                crit_dmg = (crit_dmg_percent / percent);
-            } 
-            if (document.getElementById("crit-rate").value != 0 )  {
-                crit_rate_percent = parseInt(document.getElementById("crit-rate").value);
-                crit_rate = (crit_rate_percent / percent);
-            } 
-
-            if (document.getElementById("skill-multiplier-input").value != 0 )  {
-                skill_multiplier_percent = parseInt(document.getElementById("skill-multiplier-input").value);
-                skill_dmg = 1 + (skill_multiplier_percent / percent);
-            }
-
-            if (document.getElementById("def-reduction").value != 0) {
-                def_reduction = parseInt(document.getElementById("def-reduction").value);
-            }
-
-            if (document.getElementById("res-reduction").value != 0) {
-                res_reduction = parseInt(document.getElementById("res-reduction").value);
-            }
+            if (document.getElementById("base-atk").value != 0 )                { base_atk                 = parseInt(document.getElementById("base-atk").value); }
+            if (document.getElementById("added-atk").value != 0 )               { added_atk                = parseInt(document.getElementById("added-atk").value); }
+            if (document.getElementById("elem-dmg-bonus").value != 0 )          { elem_dmg_bonus           = parseInt(document.getElementById("elem-dmg-bonus").value);         elem_dmg = 1 + (elem_dmg_bonus / percent); }
+            if (document.getElementById("crit-dmg").value != 0 )                { crit_dmg_percent         = parseInt(document.getElementById("crit-dmg").value);               crit_dmg = (crit_dmg_percent / percent); } 
+            if (document.getElementById("crit-rate").value != 0 )               { crit_rate_percent        = parseInt(document.getElementById("crit-rate").value);              crit_rate = (crit_rate_percent / percent); } 
+            if (document.getElementById("skill-multiplier-input").value != 0 )  { skill_multiplier_percent = parseInt(document.getElementById("skill-multiplier-input").value); skill_dmg = 1 + (skill_multiplier_percent / percent); }
+            if (document.getElementById("def-reduction").value != 0)            { def_reduction            = parseInt(document.getElementById("def-reduction").value); }
+            if (document.getElementById("res-reduction").value != 0)            { res_reduction            = parseInt(document.getElementById("res-reduction").value); }
+            if (document.getElementById("em-input").value != 0)                 { em                       = parseInt(document.getElementById("em-input").value); } else if (document.getElementById("em-input").value == 0) { em = 0;}
+            if (document.getElementById("reaction-bonus-multiplier").value != 0){ reaction_bonus           = parseInt(document.getElementById("reaction-bonus-multiplier").value); } else if (document.getElementById("reaction-bonus-multiplier").value == 0) { reaction_bonus = 0; }
 
             // DEF Multiplier
             def_multiplier = (char_level + 100) / (((char_level + 100) + (enemy_level + 100)) * (1 - (def_reduction / percent)));
+
             // RES Multiplier
             var base_resistance = 10;
-            var resistance = (base_resistance - res_reduction) / percent;
-            if (resistance < 0) { res_multiplier = 1 - (resistance / 2); } // Negative resistance
-            else if (0 <= resistance && resistance < 0.75) { res_multiplier = 1 - resistance; }  // 0% - 75% resistance
-            else if (resistance >= 0.75) { res_multiplier = 1 / (4 * resistance + 1); } // >75% resistance
+            var resistance      = (base_resistance - res_reduction) / percent;
+
+            if      (resistance < 0)                       { res_multiplier = 1 - (resistance / 2); }     // Negative resistance
+            else if (0 <= resistance && resistance < 0.75) { res_multiplier = 1 - resistance; }           // 0% - 75% resistance
+            else if (resistance >= 0.75)                   { res_multiplier = 1 / (4 * resistance + 1); } // >75% resistance
+
             // Average Crit
             var avg_crit = 1 + (crit_rate * crit_dmg);
+
+            // Elemental Mastery (AMPING)
+            var em_multiplier = 1;
+            if      (vapmelt_base_mult == 2)   { em_multiplier = 2   * (1 + ((2.78 * em) / (1400 + em)) + (reaction_bonus / percent)); }
+            else if (vapmelt_base_mult == 1.5) { em_multiplier = 1.5 * (1 + ((2.78 * em) / (1400 + em)) + (reaction_bonus / percent)); } 
+            else if (vapmelt_base_mult == 1)   { em_multiplier = 1; }
+
+
             // Formula
-            var total_dmg = (base_atk + added_atk) * elem_dmg * avg_crit * skill_dmg * def_multiplier * res_multiplier;
+            var total_dmg = (base_atk + added_atk) * elem_dmg * avg_crit * skill_dmg * em_multiplier * def_multiplier * res_multiplier;
 
             // TODO:
             // Elemental Mastery Transformative and Amping
             // Weapon Procs
             // Custom multipliers
             
-            total_damage_label.innerHTML = Math.round(total_dmg);
+            total_damage_label.innerHTML        = Math.round(total_dmg);
             total_damage_label_mobile.innerHTML = Math.round(total_dmg);
 
             // Debug
-            forms_debug.innerHTML = def_multiplier;
-            avgcrit_debug.innerHTML = avg_crit;
-            res_debug.innerHTML = resistance;
-            res_mult_debug.innerHTML = res_multiplier;
+            defD.innerHTML      = def_multiplier;
+            avgcritD.innerHTML  = avg_crit;
+            resD.innerHTML      = resistance;
+            res_multD.innerHTML = res_multiplier;
+            em_multD.innerHTML  = em_multiplier;
         }
         function enteredWorldLevel() {
-            if (enemy_level == 0 && char_level == 0) {
-                debug_text_label.innerHTML = "Please enter your world level and character level."
-            } else if (enemy_level != 0 && char_level != 0) {
-                debug_text_label.style.display = "none";
-            }
+            if      (enemy_level == 0 && char_level == 0) { debug_text_label.innerHTML = "Please enter your world level and character level." } 
+            else if (enemy_level != 0 && char_level != 0) { debug_text_label.style.display = "none"; }
+
             if (accuracy_switch.checked == false) {
                 document.getElementById("world-lvl-dropdown").classList.remove("disabled");
-                if (world_level == 1) {
-                enemy_level = 24;
-                } else if (world_level == 2) {
-                    enemy_level = 30;
-                } else if (world_level == 3) {
-                    enemy_level = 41;
-                } else if (world_level == 4) {
-                    enemy_level = 52;
-                } else if (world_level == 5) {
-                    enemy_level = 63;
-                } else if (world_level == 6) {
-                    enemy_level = 74;
-                } else if (world_level == 7) {
-                    enemy_level = 82;
-                } else if (world_level == 8) {
-                    enemy_level = 85;
-                }
-            } else if (accuracy_switch.checked == true) {
-                if (document.getElementById("enemy-lvl").value != 0) {
-                    enemy_level = parseInt(document.getElementById("enemy-lvl").value);
-                }
+                if (world_level == 1) { enemy_level = 24; } 
+                else if (world_level == 2) { enemy_level = 30; }
+                else if (world_level == 3) { enemy_level = 41; }
+                else if (world_level == 4) { enemy_level = 52; }
+                else if (world_level == 5) { enemy_level = 63; }     
+                else if (world_level == 6) { enemy_level = 74; }   
+                else if (world_level == 7) { enemy_level = 82; }    
+                else if (world_level == 8) { enemy_level = 85; }} 
+
+            else if (accuracy_switch.checked == true) {
+                if (document.getElementById("enemy-lvl").value != 0) { enemy_level = parseInt(document.getElementById("enemy-lvl").value); }
                 document.getElementById("world-lvl-dropdown").classList.add("disabled");
             }
 
             // When entered world level and character level, unlock forms
             var forms = document.getElementsByClassName("calc-locked");
-
             if ((world_level || enemy_level) && char_level != 0) {     
                 for (var i = forms.length - 1; i >= 0; i--) {
                     forms[i].removeAttribute('readonly');
                 }
             }
 
-            enemylvl_debug.innerHTML = enemy_level;    
-            world_lvl_debug.innerHTML = world_level;
-            char_lvl_debug.innerHTML = char_level;
+            em_mult_label.innerHTML = vapmelt_base_mult;
+            enemylvlD.innerHTML     = enemy_level;    
+            worldD.innerHTML        = world_level;
+            charD.innerHTML         = char_level;
+
         }
 
         function increaseWorldLvl(lvl) { world_level = lvl; world_level_label.innerHTML = world_level; }
         function increaseCharLvl(lvl) { char_level = lvl; char_level_label.innerHTML = char_level;  }
+        function setEMBaseMultiplier(mult) { vapmelt_base_mult = mult; }
 
-        function emswitchcheck() {
-            if (em_switch.checked == true) {
-                em_section.style.visibility = "visible";
-            } else {
-                em_section.style.visibility = "hidden";
-            }
-        }
-        function resdefswitchcheck() {
-            if (res_def_switch.checked == true) {
-                res_def_section.style.visibility = "visible"; 
-            } else {
-                res_def_section.style.visibility = "hidden";
-            }
-        }
-        function weaponswitchcheck() {
-            if (weapon_switch.checked == true) {
-                weapon_section.style.visibility = "visible"; 
-            } else {
-                weapon_section.style.visibility = "hidden";
-            }
-        }
         function accuracyswitchcheck() {
             if (accuracy_switch.checked == true) {
                 enemy_accuracy_lvl.style.visibility = "visible"; 
@@ -513,16 +445,20 @@
         }
         function transformativeswitchcheck() {
             if (transformative_switch.checked == true) {
-                transformative_drop_base.style.visibility = "visible"; 
+                vapmelt_dropdown.classList.add("disabled"); 
+                vap_switch.setAttribute('disabled', true);
             } else {
-                transformative_drop_base.style.visibility = "hidden";
+                vapmelt_dropdown.classList.remove("disabled");
+                vap_switch.removeAttribute('disabled');
             }  
         }
         function vaporizemeltswitchcheck() {
             if (vap_switch.checked == true) {
-                vapmelt_drop_base.style.visibility = "visible"; 
+                transformative_dropdown.classList.add("disabled"); 
+                transformative_switch.setAttribute('disabled', true);
             } else {
-                vapmelt_drop_base.style.visibility = "hidden";
+                transformative_dropdown.classList.remove("disabled");
+                transformative_switch.removeAttribute('disabled');
             }   
         }
         $(function() {
