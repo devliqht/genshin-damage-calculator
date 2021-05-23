@@ -409,26 +409,22 @@
 
             // DEF Multiplier
             def_multiplier = (char_level + 100) / (((char_level + 100) + (enemy_level + 100)) * (1 - (def_reduction / percent)));
-            
+            // RES Multiplier
             var base_resistance = 10;
             var resistance = (base_resistance - res_reduction) / percent;
-
-            // RES Multiplier
-            if (resistance < 0) {
-                res_multiplier = 1 - (resistance / 2);
-            } 
-            if (0 <= resistance && resistance < 0.75) {
-                res_multiplier = 1 - resistance;
-            }
-            if (resistance >= 0.75) {
-                res_multiplier = 1 / (4 * resistance + 1);
-            }
-
+            if (resistance < 0) { res_multiplier = 1 - (resistance / 2); } // Negative resistance
+            else if (0 <= resistance && resistance < 0.75) { res_multiplier = 1 - resistance; }  // 0% - 75% resistance
+            else if (resistance >= 0.75) { res_multiplier = 1 / (4 * resistance + 1); } // >75% resistance
             // Average Crit
             var avg_crit = 1 + (crit_rate * crit_dmg);
-            
             // Formula
             var total_dmg = (base_atk + added_atk) * elem_dmg * avg_crit * skill_dmg * def_multiplier * res_multiplier;
+
+            // TODO:
+            // Elemental Mastery Transformative and Amping
+            // Weapon Procs
+            // Custom multipliers
+            
             total_damage_label.innerHTML = Math.round(total_dmg);
             total_damage_label_mobile.innerHTML = Math.round(total_dmg);
 
