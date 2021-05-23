@@ -73,7 +73,7 @@ p, h1, h2, h3, h4, h5, h6, label, input {
 }
 .img-holder > img {
     padding: 5px;
-    max-width: 95%;
+    max-width: 100%;
 }
 .total-damage-mobile {
     display: none;

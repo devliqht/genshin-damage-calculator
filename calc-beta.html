@@ -273,7 +273,7 @@
                                 margin-bottom: 0;
                             }
                         </style>
-                        <h6>Debug Console</h6>
+                        <h5>Debug Console</h5>
                         <p>worldLvl: <span id="world-lvl-debug"></span></p>
                         <p>charLvl: <span id="char-lvl-debug"></span></p>
                         <p>defMultiplier: <span id="forms-debug"></span></p>
@@ -439,9 +439,9 @@
             res_mult_debug.innerHTML = res_multiplier;
         }
         function enteredWorldLevel() {
-            if (world_level == 0) {
+            if (enemy_level == 0 && char_level == 0) {
                 debug_text_label.innerHTML = "Please enter your world level and character level."
-            } else {
+            } else if (enemy_level != 0 && char_level != 0) {
                 debug_text_label.style.display = "none";
             }
             if (accuracy_switch.checked == false) {
