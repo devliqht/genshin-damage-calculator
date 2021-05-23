@@ -74,6 +74,9 @@ p, h1, h2, h3, h4, h5, h6, label, input {
     padding: 5px;
     max-width: 95%;
 }
+.total-damage-mobile {
+    display: none;
+}
 
 @media screen and (max-width: 794px) {
     .calc-row, .img-holder {
@@ -86,6 +89,12 @@ p, h1, h2, h3, h4, h5, h6, label, input {
         width: 100%;
     }
     .disappear {
+        display: none;
+    }
+    .total-damage-mobile {
+        display: block;
+    }
+    .total-damage-pc {
         display: none;
     }
 }

@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Genshin Damage Calculator</title>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/padding.css">
         <link rel="stylesheet" href="css/bootstrap-checkbox.css">
@@ -16,9 +17,11 @@
         <div class="main-page-wrapper">
             <div class="main-page-subwrap">
                 <div class="info-page">
-                    <h3 style="margin: 10px; text-align: center;">Total Damage:</h3>
-                    <h1 style="margin: 10px; text-align: center;">~<span id="total-damage"></span></h1>
-                    <h6 style="text-align: center; color: #4f4f75;">Made by Liqht#8961</h6>
+                    <div class="total-damage-pc">
+                        <h3 style="margin: 10px; text-align: center;">Total Damage:</h3>
+                        <h1 style="margin: 10px; text-align: center;">~<span id="total-damage"></span></h1>
+                        <h6 style="text-align: center; color: #4f4f75;">Made by Liqht#8961</h6>
+                    </div>
                     <div class="padding-sm"></div>
                     <div class="calc-section">
                         <h5 style="text-align: center;">What is base ATK / Added ATK?</h5>
@@ -54,6 +57,11 @@
                     <h3 style="margin: 10px; text-align: center;">Genshin Damage Calculator</h3>
                     <h5 style="margin: 10px; text-align: center;">A simple, lightweight genshin total damage calculator. Fully editable variables, formula is found <a style="color: #4f4f75;"href="https://library.keqingmains.com/mechanics/combat/damage-formula">here.</a></h5>
                     <p style="text-align: center; color: red;" id="debug-text"></p>
+                    <div class="total-damage-mobile">
+                        <h3 style="margin: 10px; text-align: center;">Total Damage:</h3>
+                        <h1 style="margin: 10px; text-align: center;">~<span id="total-damage-mobile"></span></h1>
+                        <h6 style="text-align: center; color: #4f4f75;">Made by Liqht#8961</h6>
+                    </div>
                     <div class="calc-row-wrapper">
                         <div class="calc-row">
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Add a multiplier</button>
@@ -302,6 +310,7 @@
         var world_level_label = document.getElementById("world-lvl");
         var char_level_label = document.getElementById("char-lvl");
         var total_damage_label = document.getElementById("total-damage");
+        var total_damage_label_mobile = document.getElementById("total-damage-mobile");
 
         // DEBUG
         var world_lvl_debug = document.getElementById("world-lvl-debug");
@@ -420,6 +429,7 @@
             // Formula
             var total_dmg = (base_atk + added_atk) * elem_dmg * avg_crit * skill_dmg * def_multiplier * res_multiplier;
             total_damage_label.innerHTML = Math.round(total_dmg);
+            total_damage_label_mobile.innerHTML = Math.round(total_dmg);
 
             // Debug
             forms_debug.innerHTML = def_multiplier;
