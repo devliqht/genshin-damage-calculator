@@ -29,12 +29,12 @@ p {
 }
 .info-page {
     width: 500px;
-    padding-top: 30px;
+    padding-top: 10px;
     height: fit-content;
     background: #161616;
 }
 .main-page {
-    padding-top: 30px;
+    padding-top: 10px;
     width: fit-content;
     height: fit-content;
     background: #161616;

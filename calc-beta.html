@@ -14,11 +14,11 @@
         <div class="main-page-wrapper">
             <div class="main-page-subwrap">
                 <div class="info-page">
-                    <div class="total-damage-pc">
+                    <div class="total-damage-pc" style="background: #1d1d1d; padding: 10px; margin: 10px;">
                         <h3 style="margin: 10px; text-align: center;">Total Damage:</h3>
-                        <h1 style="margin: 10px; text-align: center;">~<span id="total-damage"></span></h1>
+                        <h1 style="margin: 10px; text-align: center;"><span id="total-damage"></span></h1>
                         <h6 style="text-align: center; color: #9292d3;">Made by Liqht#8961</h6>
-                        <h6 style="text-align: center;">To get the highest possible damage, snapshot your stats when you execute your usual team combo.</h6>
+                        <h6 style="text-align: center;">To get the highest possible damage, snapshot your stats when you execute your usual team combo. This calculator is not <strong>100% accurate</strong>, damage may be off by a few hundreds.</h6>
                     </div>
                     <div class="padding-sm"></div>
                     <div class="calc-section">
@@ -53,12 +53,17 @@
                 </div>
                 <div class="main-page">
                     <h3 style="margin: 10px; text-align: center;">Genshin Damage Calculator</h3>
-                    <h5 style="margin: 10px; text-align: center;">A simple, lightweight genshin total damage calculator. Fully editable variables, formula is found <a style="color: #4f4f75;"href="https://library.keqingmains.com/mechanics/combat/damage-formula">here.</a></h5>
-                    <h5 style="text-align: center; color: #9292d3;" id="debug-text"></h5>
-                    <div class="total-damage-mobile">
+                    <h6 style="margin: 10px; text-align: center;">A genshin damage calculator based from this <a style="color: #4f4f75;"href="https://library.keqingmains.com/mechanics/combat/damage-formula">formula</a>.</h6>
+                    <div class="total-damage-mobile" style="background: #1d1d1d; padding: 10px; margin: 10px;">
                         <h3 style="margin: 10px; text-align: center;">Total Damage:</h3>
-                        <h1 style="margin: 10px; text-align: center;">~<span id="total-damage-mobile"></span></h1>
+                        <h1 style="margin: 10px; text-align: center;"><span id="total-damage-mobile"></span></h1>
+                        <style>
+                            h6 {
+                                margin-bottom: 0;
+                            }
+                        </style>
                         <h6 style="text-align: center; color: #9292d3;">Made by Liqht#8961</h6>
+                        <h6 style="text-align: center; margin: 10px;">To get the highest possible damage, snapshot your stats when you execute your usual team combo. This calculator is not <strong>100% accurate</strong>, damage may be off by a few hundreds.</h6>
                     </div>
                     <div class="calc-row-wrapper">
                         <div class="calc-row">
@@ -113,7 +118,7 @@
                                     <li><a class="dropdown-item" onclick="increaseCharLvl(90);">90</a></li>
                                 </ul>
                             </div>
-                            <div class="input-group mb-3" style="visibility: hidden;" id="enemy-accuracy-lvl">
+                            <div class="input-group" style="visibility: hidden;" id="enemy-accuracy-lvl">
                                 <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">Enemy Level</span>
                                 <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="enemy-lvl">
                             </div>
@@ -124,11 +129,11 @@
                     </div>
                     <div class="calc-row-wrapper">
                         <div class="calc-row">
-                            <div class="input-group mb-3">
+                            <div class="input-group">
                                 <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">Base ATK</span>
                                 <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="base-atk">
                             </div>
-                            <div class="input-group mb-3">
+                            <div class="input-group">
                                 <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">Added ATK</span>
                                 <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="added-atk">
                             </div>
@@ -138,7 +143,7 @@
                         <h5 style="text-align: left;">Multipliers <span class="text-muted">(Note: No need to input % sign)</span></h5>
                     </div>
                     <div class="calc-row-wrapper">
-                        <div class="calc-row">
+                        <div class="calc-row" style="margin: 5px 5px 0 5px;">
                             <div class="input-group">
                                 <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">Elem DMG Bonus%</span>
                                 <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="elem-dmg-bonus">
@@ -150,7 +155,7 @@
                         </div>
                     </div>
                     <div class="calc-row-wrapper">
-                        <div class="calc-row">
+                        <div class="calc-row" style="margin: 0 5px 5px 5px;">
                             <div class="input-group">
                                 <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">Crit Rate%</span>
                                 <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="crit-rate">
@@ -174,7 +179,7 @@
                             </div>
                         </div>
                         <div class="calc-row-wrapper">
-                            <div class="calc-row">
+                            <div class="calc-row" style="margin: 5px 5px 0 5px;">
                                 <div class="input-group">
                                     <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">Elemental Mastery</span>
                                     <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="em-input">
@@ -186,7 +191,7 @@
                             </div>
                         </div>
                         <div class="calc-row-wrapper">
-                            <div class="calc-row">
+                            <div class="calc-row" style="margin: 0 5px 5px 5px;">
                                 <div class="dropdown" id="vapmelt">
                                     <button class="btn btn-secondary dropdown-toggle" style="border-color: #4f4f75; background-color: #4f4f75; color: #d5d6da;" type="button" id="vapmelt-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                     Vaporize/Melt <span id="em-multiplier-label"></span>x
@@ -218,11 +223,11 @@
                         </div>
                         <div clsas="calc-row-wrapper">
                             <div class="calc-row">
-                                <div class="input-group mb-3" id="res-decrease">
+                                <div class="input-group" id="res-decrease">
                                     <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">RES reduction%</span>
                                     <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="res-reduction">
                                 </div>
-                                <div class="input-group mb-3" id="def-decrease">
+                                <div class="input-group" id="def-decrease">
                                     <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">DEF reduction%</span>
                                     <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="def-reduction">
                                 </div>
@@ -235,7 +240,7 @@
                         </div>
                         <div class="calc-row-wrapper">
                             <div class="calc-row">
-                                <div class="input-group mb-3" id="weapon-procs">
+                                <div class="input-group" id="weapon-procs">
                                     <span style="border-color: rgba(0,0,0,0); background-color: #4f4f75; color: #d5d6da;" class="input-group-text" id="inputGroup-sizing-default">Weapon Procs%</span>
                                     <input style="background-color: #232324; border-color: #242526; color: #d5d6da;" readonly type="text" class="form-control calc-locked" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                                 </div>
@@ -252,7 +257,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="calc-section" id="debug-console">
+                    <div class="calc-section" id="debug-console" style="margin-bottom: 9px;">
                         <style>
                             p {
                                 margin-bottom: 0;
@@ -261,12 +266,12 @@
                         <h5>Debug Console</h5>
                         <p>worldLvl: <span id="world-lvl-debug"></span></p>
                         <p>charLvl: <span id="char-lvl-debug"></span></p>
-                        <p>defMultiplier: <span id="def-debug"></span></p>
+                        <p>enemyLvl: <span id="enemylvl-debug"></span></p>
                         <p>resistance: <span id="res-debug"></span></p>
                         <p>resMultiplier: <span id="res-mult-debug"></span></p>
-                        <p>avgCrit: <span id="avgcrit-debug"></span></p>
-                        <p>enemyLvl: <span id="enemylvl-debug"></span></p>
+                        <p>defMultiplier: <span id="def-debug"></span></p>
                         <p>emMultiplier: <span id="em-mult-debug"></span></p>
+                        <p>avgCrit: <span id="avgcrit-debug"></span></p>
                     </div>
                 </div>
                 <div class="padding-sm"></div>
@@ -295,7 +300,6 @@
         var transformative_dropdown  = document.getElementById("transformative-dropdown")
 
         // LABELS
-        var debug_text_label          = document.getElementById("debug-text");
         var world_level_label         = document.getElementById("world-lvl");
         var char_level_label          = document.getElementById("char-lvl");
         var total_damage_label        = document.getElementById("total-damage");
@@ -398,9 +402,6 @@
             em_multD.innerHTML  = em_multiplier;
         }
         function enteredWorldLevel() {
-            if      (enemy_level == 0 && char_level == 0) { debug_text_label.innerHTML = "Please enter your world level and character level." } 
-            else if (enemy_level != 0 && char_level != 0) { debug_text_label.style.display = "none"; }
-
             if (accuracy_switch.checked == false) {
                 document.getElementById("world-lvl-dropdown").classList.remove("disabled");
                 if (world_level == 1) { enemy_level = 24; } 
