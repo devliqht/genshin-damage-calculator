@@ -5,9 +5,6 @@
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/padding.css">
         <link rel="stylesheet" href="css/bootstrap-checkbox.css">
-        <style>
-
-        </style>
         <script src="js/formula.js"></script>
         <script src="js/switches.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -270,7 +267,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="calc-section">
+                    <div class="calc-section" id="debug-console">
+                        <style>
+                            p {
+                                margin-bottom: 0;
+                            }
+                        </style>
                         <h6>Debug Console</h6>
                         <p>worldLvl: <span id="world-lvl-debug"></span></p>
                         <p>charLvl: <span id="char-lvl-debug"></span></p>
@@ -312,7 +314,6 @@
         var total_damage_label = document.getElementById("total-damage");
         var total_damage_label_mobile = document.getElementById("total-damage-mobile");
 
-        // DEBUG
         var world_lvl_debug = document.getElementById("world-lvl-debug");
         var char_lvl_debug = document.getElementById("char-lvl-debug");
         var forms_debug = document.getElementById("forms-debug");
